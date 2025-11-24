@@ -1,0 +1,230 @@
+/*
+    Diegetic Digital Frontier - Phase 1 CSS
+    With Blurred Background
+*/
+
+/* 1. Core Setup & Font Stack */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+
+body {
+    background-color: #333; /* Fallback color */
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    image-rendering: pixelated;
+    cursor: url('https://cur.cursors-4u.net/games/gam-15/gam1401.cur'), auto;
+}
+
+.background-blur {
+    position: fixed;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background-image: url('https://i.redd.it/pp6lcb2wir941.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+h1, h2, h3, h4, h5, h6, .font-minecraft {
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* 2. Minecraft GUI Window & Component Styling */
+.mc-window {
+    background-color: rgba(198, 198, 198, 0.8); /* Slightly transparent */
+    border-style: solid;
+    border-width: 2px;
+    border-color: #FFFFFF #373737 #373737 #FFFFFF;
+    box-shadow: inset 2px 2px 0px #FFFFFF, inset -2px -2px 0px #5A5A5A;
+    padding: 1rem;
+    color: #000000;
+    backdrop-filter: blur(2px); /* Frosted glass effect */
+}
+
+.mc-slot {
+    background-color: rgba(139, 139, 139, 0.8); /* Slightly transparent */
+    border: 2px solid #373737;
+    box-shadow: inset 2px 2px 0px #FFFFFF, inset -2px -2px 0px #5A5A5A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    position: relative;
+    backdrop-filter: blur(2px);
+    transition: all 0.1s ease-out;
+    flex-shrink: 0; /* Prevent slots from shrinking */
+}
+
+.mc-slot:hover {
+    transform: translateY(-4px) scale(1.05);
+}
+
+.mc-slot:active {
+    transform: translateY(0px) scale(0.95);
+}
+
+.mc-slot img {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+}
+
+/* Video Card Specifics */
+.video-card {
+    position: relative;
+    display: block;
+}
+
+.video-card::before, .video-card::after {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.video-card:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+}
+
+.video-card:hover::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px 0 20px 30px;
+    border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
+    opacity: 1;
+}
+
+
+.mc-button {
+    background-color: #707070;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #FFFFFF #373737 #373737 #FFFFFF;
+    color: white;
+    padding: 10px 20px;
+    text-shadow: 2px 2px #333333;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.1s ease-out;
+}
+
+.mc-button:hover, .mc-button:focus {
+    background-color: #A0A0A0;
+    transform: scale(1.05);
+}
+
+.mc-button:active {
+    transform: scale(0.95);
+}
+
+/* 3. Hotbar Navigation System */
+.hotbar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2px;
+    z-index: 100;
+    width: auto; /* Allow it to size based on content */
+    max-width: 90vw; /* Prevent it from being too wide on large mobile */
+}
+
+.hotbar .mc-slot.active {
+    border-color: #FFFFFF;
+    box-shadow: 0 0 5px 2px #FFFFFF, inset 2px 2px 0px #FFFFFF, inset -2px -2px 0px #5A5A5A;
+}
+
+.hotbar .mc-slot .hotbar-key {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: 10px;
+    color: #FFF;
+    text-shadow: 1px 1px #000;
+}
+
+.hotbar .mc-slot .tooltip {
+    visibility: hidden;
+    width: 160px;
+    background-color: #100010;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border: 2px solid #5000FF;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+}
+
+.hotbar .mc-slot:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* 4. Particle Click Effect */
+.particle {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background-color: #FFF;
+    border: 1px solid #999;
+    pointer-events: none;
+    z-index: 9999;
+    animation: fade-out 1s forwards;
+    image-rendering: pixelated;
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* 5. Mobile Optimization */
+@media (max-width: 768px) {
+    .hotbar {
+        left: 0;
+        right: 0;
+        transform: none;
+        padding: 0 10px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+    .hotbar::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+    .mc-window {
+        padding: 0.5rem;
+    }
+
+    h1, h2, h3, .font-minecraft {
+        font-size: 0.8rem; /* Adjust font size for mobile */
+    }
+}
