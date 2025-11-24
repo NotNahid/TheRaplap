@@ -1,17 +1,35 @@
 /*
-    Diegetic Digital Frontier - Phase 1 CSS
-    With Blurred Background
+    Diegetic Digital Frontier - Enhanced Phase 2 CSS
+    Added: Dark Mode Toggle, Better Animations, Search Functionality, Social Links
 */
 
 /* 1. Core Setup & Font Stack */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
 
+:root {
+    --primary-bg: #333;
+    --primary-text: #FFFFFF;
+    --window-bg: rgba(198, 198, 198, 0.8);
+    --window-text: #000000;
+    --slot-bg: rgba(139, 139, 139, 0.8);
+    --border-light: #FFFFFF;
+    --border-dark: #373737;
+}
+
+body.dark-mode {
+    --primary-bg: #1a1a1a;
+    --window-bg: rgba(50, 50, 50, 0.9);
+    --window-text: #FFFFFF;
+    --slot-bg: rgba(80, 80, 80, 0.9);
+}
+
 body {
-    background-color: #333; /* Fallback color */
-    color: #FFFFFF;
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
     font-family: 'Roboto', sans-serif;
     image-rendering: pixelated;
     cursor: url('https://cur.cursors-4u.net/games/gam-15/gam1401.cur'), auto;
+    transition: background-color 0.3s ease;
 }
 
 .background-blur {
@@ -25,6 +43,11 @@ body {
     background-position: center;
     filter: blur(8px);
     z-index: -1;
+    transition: filter 0.3s ease;
+}
+
+body.dark-mode .background-blur {
+    filter: blur(12px) brightness(0.6);
 }
 
 h1, h2, h3, h4, h5, h6, .font-minecraft {
@@ -33,20 +56,32 @@ h1, h2, h3, h4, h5, h6, .font-minecraft {
 
 /* 2. Minecraft GUI Window & Component Styling */
 .mc-window {
-    background-color: rgba(198, 198, 198, 0.8); /* Slightly transparent */
+    background-color: var(--window-bg);
     border-style: solid;
     border-width: 2px;
-    border-color: #FFFFFF #373737 #373737 #FFFFFF;
-    box-shadow: inset 2px 2px 0px #FFFFFF, inset -2px -2px 0px #5A5A5A;
+    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+    box-shadow: inset 2px 2px 0px var(--border-light), inset -2px -2px 0px #5A5A5A;
     padding: 1rem;
-    color: #000000;
-    backdrop-filter: blur(2px); /* Frosted glass effect */
+    color: var(--window-text);
+    backdrop-filter: blur(2px);
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .mc-slot {
-    background-color: rgba(139, 139, 139, 0.8); /* Slightly transparent */
-    border: 2px solid #373737;
-    box-shadow: inset 2px 2px 0px #FFFFFF, inset -2px -2px 0px #5A5A5A;
+    background-color: var(--slot-bg);
+    border: 2px solid var(--border-dark);
+    box-shadow: inset 2px 2px 0px var(--border-light), inset -2px -2px 0px #5A5A5A;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,7 +90,7 @@ h1, h2, h3, h4, h5, h6, .font-minecraft {
     position: relative;
     backdrop-filter: blur(2px);
     transition: all 0.1s ease-out;
-    flex-shrink: 0; /* Prevent slots from shrinking */
+    flex-shrink: 0;
 }
 
 .mc-slot:hover {
@@ -72,54 +107,71 @@ h1, h2, h3, h4, h5, h6, .font-minecraft {
     image-rendering: pixelated;
 }
 
-/* Video Card Specifics */
+/* Video Card Improvements - NEW */
 .video-card {
     position: relative;
     display: block;
+    overflow: hidden;
+    border-radius: 4px;
+    transition: transform 0.2s ease;
 }
 
-.video-card::before, .video-card::after {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+.video-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
 }
 
-.video-card:hover::before {
+.video-card:hover img {
+    transform: scale(1.05);
+}
+
+.video-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 1;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.3s ease-in-out;
+    z-index: 2;
 }
 
-.video-card:hover::after {
-    content: '';
+.video-card:hover::before {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.video-card::after {
+    content: '▶';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 20px 0 20px 30px;
-    border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
-    opacity: 1;
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0);
+    transition: color 0.3s ease-in-out;
+    z-index: 3;
 }
 
+.video-card:hover::after {
+    color: rgba(255, 255, 255, 0.9);
+}
 
 .mc-button {
     background-color: #707070;
     border-style: solid;
     border-width: 2px;
-    border-color: #FFFFFF #373737 #373737 #FFFFFF;
+    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
     color: white;
     padding: 10px 20px;
     text-shadow: 2px 2px #333333;
     display: inline-block;
     text-align: center;
     transition: all 0.1s ease-out;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
 }
 
 .mc-button:hover, .mc-button:focus {
@@ -131,6 +183,95 @@ h1, h2, h3, h4, h5, h6, .font-minecraft {
     transform: scale(0.95);
 }
 
+/* Dark Mode Toggle Button - NEW */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 200;
+    background-color: rgba(112, 112, 112, 0.9);
+    border: 2px solid var(--border-dark);
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 0;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Search & Filter Section - NEW */
+.search-container {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    padding: 10px 15px;
+    border: 2px solid var(--border-dark);
+    background-color: rgba(100, 100, 100, 0.7);
+    color: var(--primary-text);
+    font-family: 'Roboto', sans-serif;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 200px;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    background-color: rgba(120, 120, 120, 0.9);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Social Links - NEW */
+.social-links {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    background-color: var(--slot-bg);
+    border: 2px solid var(--border-dark);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--primary-text);
+    transition: all 0.2s ease;
+    font-size: 20px;
+}
+
+.social-link:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 /* 3. Hotbar Navigation System */
 .hotbar {
     position: fixed;
@@ -140,13 +281,13 @@ h1, h2, h3, h4, h5, h6, .font-minecraft {
     display: flex;
     gap: 2px;
     z-index: 100;
-    width: auto; /* Allow it to size based on content */
-    max-width: 90vw; /* Prevent it from being too wide on large mobile */
+    width: auto;
+    max-width: 90vw;
 }
 
 .hotbar .mc-slot.active {
-    border-color: #FFFFFF;
-    box-shadow: 0 0 5px 2px #FFFFFF, inset 2px 2px 0px #FFFFFF, inset -2px -2px 0px #5A5A5A;
+    border-color: var(--border-light);
+    box-shadow: 0 0 5px 2px var(--border-light), inset 2px 2px 0px var(--border-light), inset -2px -2px 0px #5A5A5A;
 }
 
 .hotbar .mc-slot .hotbar-key {
@@ -213,11 +354,11 @@ h1, h2, h3, h4, h5, h6, .font-minecraft {
         padding: 0 10px;
         justify-content: flex-start;
         overflow-x: auto;
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
     .hotbar::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Opera */
+        display: none;
     }
 
     .mc-window {
@@ -225,6 +366,26 @@ h1, h2, h3, h4, h5, h6, .font-minecraft {
     }
 
     h1, h2, h3, .font-minecraft {
-        font-size: 0.8rem; /* Adjust font size for mobile */
+        font-size: 0.8rem;
+    }
+
+    .dark-mode-toggle {
+        top: 10px;
+        right: 10px;
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    .search-input {
+        min-width: 100%;
+    }
+
+    .social-links {
+        gap: 10px;
     }
 }
