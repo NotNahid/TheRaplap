@@ -1,79 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos - The Raplap</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="background-blur"></div>
+<!-- Add this INSIDE the mc-window div, right after the <h1> tag -->
+<div class="search-container">
+    <input type="text" class="search-input" placeholder="🔍 Search videos...">
+</div>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-10">
-        <div class="mc-window">
-            <h1 class="text-2xl text-center mb-4">Video Archive</h1>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="mc-slot" style="width:100%; height:auto; padding: 1rem;">
-                    <a href="https://www.youtube.com/watch?v=wtsaiAjGX1g" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/wtsaiAjGX1g/hqdefault.jpg" alt="Video Thumbnail" class="w-full h-auto mb-4">
-                        <h4 class="font-minecraft text-base mb-2 text-black">Video 1</h4>
-                    </a>
-                </div>
-                <div class="mc-slot" style="width:100%; height:auto; padding: 1rem;">
-                    <a href="https://www.youtube.com/watch?v=kpIurhxMboQ" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/kpIurhxMboQ/hqdefault.jpg" alt="Video Thumbnail" class="w-full h-auto mb-4">
-                        <h4 class="font-minecraft text-base mb-2 text-black">Video 2</h4>
-                    </a>
-                </div>
-                <div class="mc-slot" style="width:100%; height:auto; padding: 1rem;">
-                    <a href="https://www.youtube.com/watch?v=aCEsb6_Op1g" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/aCEsb6_Op1g/hqdefault.jpg" alt="Video Thumbnail" class="w-full h-auto mb-4">
-                        <h4 class="font-minecraft text-base mb-2 text-black">Video 3</h4>
-                    </a>
-                </div>
-                <div class="mc-slot" style="width:100%; height:auto; padding: 1rem;">
-                    <a href="https://www.youtube.com/watch?v=_-eNeNRAUeA" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/_-eNeNRAUeA/hqdefault.jpg" alt="Video Thumbnail" class="w-full h-auto mb-4">
-                        <h4 class="font-minecraft text-base mb-2 text-black">Video 4</h4>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Hotbar Navigation -->
-    <div class="hotbar">
-        <div class="mc-slot">
-            <span class="hotbar-key">1</span>
-            <a href="index.html">
-                <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/95/Compass_JE2_BE2.gif" alt="Home">
-                <span class="tooltip">Home</span>
-            </a>
-        </div>
-        <div class="mc-slot active">
-            <span class="hotbar-key">2</span>
-            <a href="videos.html">
-                <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c9/Painting_JE4_BE2.png" alt="Videos">
-                <span class="tooltip">Videos</span>
-            </a>
-        </div>
-        <div class="mc-slot">
-            <span class="hotbar-key">3</span>
-            <a href="about.html">
-                <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/7/77/Player_Head_JE2.png" alt="About">
-                <span class="tooltip">About</span>
-            </a>
-        </div>
-        <div class="mc-slot"><span class="hotbar-key">4</span></div>
-        <div class="mc-slot"><span class="hotbar-key">5</span></div>
-        <div class="mc-slot"><span class="hotbar-key">6</span></div>
-        <div class="mc-slot"><span class="hotbar-key">7</span></div>
-        <div class="mc-slot"><span class="hotbar-key">8</span></div>
-        <div class="mc-slot"><span class="hotbar-key">9</span></div>
-    </div>
-
-    <script src="js/main.js"></script>
-</body>
-</html>
+<!-- Update each video slot with data-video attribute -->
+<div class="mc-slot" style="width:100%; height:auto; padding: 1rem;" data-video="Video 1">
+    <a href="https://www.youtube.com/watch?v=wtsaiAjGX1g" target="_blank" class="video-card">
+        <img src="https://img.youtube.com/vi/wtsaiAjGX1g/hqdefault.jpg" alt="Video 1 Thumbnail">
+        <h4 class="font-minecraft text-base mb-2 text-black">Video 1</h4>
+    </a>
+</div>
